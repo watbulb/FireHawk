@@ -1,3 +1,12 @@
+#————Setup————
+[pi1]
+kernel=kernel-rpi1_install.img
+initramfs installer-rpi1.cpio.gz
+device_tree=
+[pi2]
+kernel=kernel-rpi2_install.img
+initramfs installer-rpi2.cpio.gz
+
 # uncomment if you get no picture on HDMI for a default "safe" mode
 #hdmi_safe=1
 
@@ -65,15 +74,6 @@ arm_freq=1000
 core_freq=500
 sdram_freq=500
 gpu_freq=350
-
-#————Setup————
-[pi1]
-kernel=kernel-rpi1_install.img
-initramfs installer-rpi1.cpio.gz
-device_tree=
-[pi2]
-kernel=kernel-rpi2_install.img
-initramfs installer-rpi2.cpio.gz
 
 #————DT-Overlay———
 dtparam=i2c_arm=on
