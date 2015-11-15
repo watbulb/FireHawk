@@ -1,22 +1,13 @@
 #!/bin/bash
 
 echo "post-install - Creating upstart job for reboot"
-<<<<<<< HEAD
-	touch /etc/init/firepick_install.conf
-
-=======
->>>>>>> feature
 	(
 	    echo description     "FirePick Packages Installation" 
 	    echo start on startup
 	    echo task
 	    echo exec /boot/FirePick_Install.sh
-<<<<<<< HEAD
-	) >> /etc/init/firepick_install.conf
-=======
 	) >> /rootfs/etc/init/firepick_install.conf
->>>>>>> feature
 
-	echo "bcm2709-rng" >> /etc/modules
+	echo "bcm2709-rng" >> rootfs/etc/modules
 
 #EOF
