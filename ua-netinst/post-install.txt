@@ -1,0 +1,4 @@
+#!/bin/bash
+cp /boot/FirePick_Install.sh /rootfs/etc/init.d/
+ln -s /rootfs/etc/init.d/FirePick_Install.sh /rootfs/etc/rc3.d/S99FirePick_Install
+ls -la
