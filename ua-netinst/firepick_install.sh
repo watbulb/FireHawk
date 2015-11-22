@@ -1,7 +1,11 @@
 #!/bin/bash
+# ---------------------------------------------------------------------------
+# firepick_install.sh - To Install FirePick System on a Raspberry Pi
+
 # The MIT License (MIT)
 
-# Copyright (c) 2015 daytonpid@gmail.com
+# Copyright (c) 2015 Dayton Pidhirney <daytonpid@gmail.com>
+
 
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -10,53 +14,97 @@
 # copies of the Software, and to permit persons to whom the Software is
 # furnished to do so, subject to the following conditions:
 
-# The above copyright notice and this permission notice shall be included in all
-# copies or substantial portions of the Software.
+
+# The above copyright notice and this permission notice shall be included in
+# all copies or substantial portions of the Software.
+
 
 # THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
 # IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE
 # AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-# SOFTWARE.
+# OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+# THE SOFTWARE.
 
-exec 3>&1 4>&2
-trap 'exec 2>&4 1>&3' 0 1 2 3
-exec 1>log.out 2>&1
+# Revision history:
+# 2015-11-22 First revision. Logfile support.
+# ---------------------------------------------------------------------------
+PROGNAME=firepick_install
+clean_up() { # Perform pre-exit housekeeping
+  return
+}
 
-set -e
+error_exit() { # Echo then turn on power LED to incicate faliure
+  echo -e "${1:-"Unknown Error"}" >&2
+  echo default-on | sudo tee /sys/class/leds/led1/trigger >/dev/null
+  clean_up
+  exit 1
+}
 
-echo "post-install - STAGE 0"
-	apt-get -y install raspi-copies-and-fills raspi-config libraspberrypi-bin btrfs-tools apt-utils rpi-update git unzip
-	
+graceful_exit() {
+  clean_up
+  exit
+}
 
-echo "post-install - STAGE 1"
-	btrfs subvolume create /.snapshot
-	btrfs subvolume snapshot -r / /.snapshot/base-system/
+signal_exit() { # Handle trapped signals
+  case $1 in
+    TERM)
+      echo -e "\n$PROGNAME: Program terminated" >&2
+      graceful_exit ;;
+    *)
+      error_exit "$PROGNAME: Terminating on unknown signal" ;;
+  esac
+}
 
-echo "post-install - STAGE 2"
-	rpi-update
-	cp -v /boot/vmlinuz-* /boot/kernel.img
+# Trap signals
+trap "signal_exit TERM" TERM HUP
 
-echo "post-install - STAGE 3" ## create a btrfs volume on a usb stick and add it to the fstab
-	#mkfs.btrfs /dev/sda
-	#(
-	#	echo
-	#	echo '/dev/sda        /data/local     btrfs   defaults 0 0'
-	#	echo
-	#) >> /etc/fstab
-	#mkdir -pv /data/local
-	#mount -v  /data/local
-	#btrfs subvolume create /data/local/.snapshot
+fail() { # Turn power LED on to indicate faliure
+  echo "Oh noes, something went wrong!"
+  echo default-on | sudo tee /sys/class/leds/led1/trigger >/dev/null
+  exit
+}
 
-echo "post-install - STAGE 4" ## **FINAL STEP FOR BETA TESTING**
-	#btrfs subvolume snapshot -r / /.snapshot/configured-system
+success() { # Turn act LED on to indicate successful installation
+  chmod -x /etc/init.d/firepick_install.sh || fail
+  rm /etc/rc3.d/S99firepick_install || fail
 
-echo "post-install - DONE"
-echo "	sleeping 5 seconds then flash ACT and power LED's to indicate installation completion ..."
-	sleep 5
-	export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/sbin:/sbin
-	echo default-on | sudo tee /sys/class/leds/led1/trigger >/dev/null
-	chmod -x /etc/init.d/FirePick_Install.sh
-# EOF
+  rpi-update || fail # update system kernel and firmware
+  cp -v /boot/vmlinuz-* /boot/kernel.img || fail # copy configured vmlinuz image to the kernel
+
+  export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/sbin:/sbin || fail #export proper path
+
+  echo default-on | sudo tee /sys/class/leds/led0/trigger >/dev/null || fail
+  exit
+}
+
+# Main logic
+
+LOGFILE=/var/log/firepick_install.log
+username="$USER"
+
+# redirect stdout and stderr also to logfile
+mkfifo ${LOGFILE}.pipe
+tee < ${LOGFILE}.pipe $LOGFILE &
+exec &> ${LOGFILE}.pipe
+rm ${LOGFILE}.pipe
+
+# update and install packages
+sudo apt-get update || fail
+sudo apt-get upgrade || fail
+apt-get -y install raspi-copies-and-fills libraspberrypi-bin apt-utils rpi-update git build-essential libatlas-base-dev gfortran || fail # install needed packages
+
+# Install FireSight
+git clone git://github.com/firepick1/FireSight /home/fireuser/ || fail
+sh /home/fireuser/FireSight/build || fail
+usermod -aG video "$username"
+
+# Install Firenodejs
+git clone https://github.com/firepick1/firenodejs /home/fireuser/ || fail
+sh /home/fireuser/firenodejs/scripts/install.sh || fail
+
+
+
+graceful_exit
+success
