@@ -527,8 +527,20 @@ rm bootfs/config-*
 mv bootfs/vmlinuz-${KERNEL_VERSION_RPI1} bootfs/kernel-rpi1_install.img
 mv bootfs/vmlinuz-${KERNEL_VERSION_RPI2} bootfs/kernel-rpi2_install.img
 
-if [ ! -f bootfs/config.txt ] ; then
-    touch bootfs/config.txt
+if [ ! -f config.txt ] ; then
+    cp config.txt bootfs/
+fi
+
+if [ ! -f installer-config.txt ] ; then
+    cp installer-config.txt bootfs/
+fi
+
+if [ ! -f firepick_install.sh ] ; then
+    cp firepick_install.sh bootfs/
+fi
+
+if [ ! -f post-install.txt ] ; then
+    cp post-install.txt bootfs/
 fi
 
 create_cpio "rpi1"
