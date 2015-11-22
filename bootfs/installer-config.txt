@@ -1,5 +1,5 @@
 preset=server
-packages=tree
+packages=
 mirror=http://mirrordirector.raspbian.org/raspbian/
 release=jessie
 hostname=FirePick
