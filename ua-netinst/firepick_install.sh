@@ -97,8 +97,10 @@ apt-get -y install raspi-copies-and-fills libraspberrypi-bin apt-utils rpi-updat
 
 # Install FireSight
 git clone https://github.com/daytonpid/FireSight.git /home/fireuser/FireSight || fail
-bash /home/fireuser/FireSight/build || fail
-usermod -aG video fireuser
+cd /home/fireuser/FireSight || fail
+bash build || fail
+cd ~ || fail
+usermod -aG video fireuser || fail
 
 # Install Firenodejs
 git clone https://github.com/firepick1/firenodejs /home/fireuser/firenodejs || fail
