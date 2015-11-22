@@ -1,4 +1,5 @@
-#————Setup————
+# Device Selection #
+
 [pi1]
 kernel=kernel-rpi1_install.img
 initramfs installer-rpi1.cpio.gz
@@ -6,6 +7,8 @@ device_tree=
 [pi2]
 kernel=kernel-rpi2_install.img
 initramfs installer-rpi2.cpio.gz
+
+# HDMI Properties #
 
 # uncomment if you get no picture on HDMI for a default "safe" mode
 #hdmi_safe=1
@@ -42,40 +45,45 @@ framebuffer_height=720
 # uncomment for composite PAL
 #sdtv_mode=2
 
-#-------RPi Camera Module-------
+# Camera Module #
+
 start_x=1
 disable_camera_led=1
 
-#-------GPU memory Splits-------
+# GPU Memory Splits #
+
 gpu_mem=128
 
-#-------Max USB Current -------
+# Max USB Current #
+
 max_usb_current=0
 
-#-------Disable Ram temp refresh every 500ms---------------
+# Disable Ram Temp Refresh Every 500ms #
+
 disable_pvt=1
 
-#-------Disable Pi Splash screen on boot-------------
+# Disable Pi Splash Screen on Boot #
+
 disable_splash=1
 
-#-------Remove dedicated pll for PWM audio -------
+# Remove dedicated pll for PWM audio #
+
 avoid_pwm_pll=1
 
-#-------SoundCard-------
+# SoundCard #
+
 #dtoverlay=RPi-bcm2835
 
-#-------Overclock-------
-temp_limit=85
-#initial_turbo=40 ##DO NOT UNCOMMENT/WILL BREAK BOOT##
-force_turbo=0
+# Overclock #
 
+temp_limit=85
+force_turbo=0
 over_voltage=2
 arm_freq=1000
 core_freq=500
 sdram_freq=500
 gpu_freq=350
 
-#————DT-Overlay———
-dtparam=i2c_arm=on
-dtparam=i2s=on
-dtparam=spi=on
+# DT Overlays #
+
+dtparam=i2c,i2s,spi
