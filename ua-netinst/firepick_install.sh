@@ -93,7 +93,7 @@ rm ${LOGFILE}.pipe
 # update and install packages
 sudo apt-get update || fail
 sudo apt-get upgrade || fail
-apt-get -y install raspi-copies-and-fills libraspberrypi-bin apt-utils rpi-update git build-essential libatlas-base-dev gfortran || fail # install needed packages
+apt-get -y install raspi-copies-and-fills libraspberrypi-bin apt-utils rpi-update git build-essential libatlas-base-dev gfortran autoconf || fail # install needed packages
 
 # Install FireSight
 git clone https://github.com/daytonpid/FireSight.git /home/fireuser/FireSight || fail
