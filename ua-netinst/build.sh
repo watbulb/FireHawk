@@ -496,6 +496,11 @@ function create_cpio {
     mkdir -p rootfs/lib/modules/$KERNEL_VERSION/kernel/drivers/net
     cp -r tmp/lib/modules/$KERNEL_VERSION/kernel/drivers/net/wireless rootfs/lib/modules/$KERNEL_VERSION/kernel/drivers/net/
 
+    # Copy Init Script
+    cp FirePick_Install.sh rootfs/etc/init.d/
+    mkdir rootfs/etc/rc3.d
+    ln -s rootfs/etc/init.d/FirePick_Install.sh rootfs/etc/rc3.d/S99FirePick_Install.sh
+
     INITRAMFS="../installer-${target_system}.cpio.gz"
     (cd rootfs && find . | cpio -H newc -ov | gzip --best > $INITRAMFS)
 
