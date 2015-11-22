@@ -58,5 +58,5 @@ echo "	sleeping 5 seconds then flash ACT and power LED's to indicate installatio
 	sleep 5
 	export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/sbin:/sbin
 	echo default-on | sudo tee /sys/class/leds/led1/trigger >/dev/null
-
+	chmod -x /etc/init.d/FirePick_Install.sh
 # EOF
