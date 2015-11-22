@@ -1,8 +1,8 @@
-# raspbian-ua-netinst
+# firehawk-ua-netinst
 
-The minimal Raspbian unattended netinstaller for Raspberry Pi Model 1B, 1B+ and 2B.  
+The minimal unattended FirePick netinstaller for Raspberry Pi Model 1B, 1B+ and 2B.  
 
-This project provides [Raspbian][1] power users the possibility to install a minimal base system unattended using latest Raspbian packages regardless when the installer was built.
+This project provides FirePick users the possibility to install a minimal base Raspbian system unattended using latest Raspbian and FirePick packages regardless when the installer was built.
 
 The installer with default settings configures eth0 with DHCP to get Internet connectivity and completely wipes the SD card from any previous installation.
 
