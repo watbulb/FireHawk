@@ -82,7 +82,6 @@ success() { # Turn act LED on to indicate successful installation
 # Main logic
 
 LOGFILE=/var/log/firepick_install.log
-username="$USER"
 
 # redirect stdout and stderr also to logfile
 mkfifo ${LOGFILE}.pipe
@@ -97,12 +96,12 @@ apt-get -y install raspi-copies-and-fills libraspberrypi-bin apt-utils rpi-updat
 
 # Install FireSight
 git clone git://github.com/firepick1/FireSight /home/fireuser/ || fail
-sh /home/fireuser/FireSight/build || fail
-usermod -aG video "$username"
+bash /home/fireuser/FireSight/build || fail
+usermod -aG video fireuser
 
 # Install Firenodejs
 git clone https://github.com/firepick1/firenodejs /home/fireuser/ || fail
-sh /home/fireuser/firenodejs/scripts/install.sh || fail
+bash /home/fireuser/firenodejs/scripts/install.sh || fail
 
 
 
