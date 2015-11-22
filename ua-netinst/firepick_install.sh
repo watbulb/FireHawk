@@ -32,6 +32,7 @@
 # ---------------------------------------------------------------------------
 PROGNAME=firepick_install
 clean_up() { # Perform pre-exit housekeeping
+  
   return
 }
 
@@ -95,12 +96,12 @@ sudo apt-get upgrade || fail
 apt-get -y install raspi-copies-and-fills libraspberrypi-bin apt-utils rpi-update git build-essential libatlas-base-dev gfortran || fail # install needed packages
 
 # Install FireSight
-git clone git://github.com/firepick1/FireSight /home/fireuser/ || fail
+git clone https://github.com/daytonpid/FireSight.git /home/fireuser/FireSight || fail
 bash /home/fireuser/FireSight/build || fail
 usermod -aG video fireuser
 
 # Install Firenodejs
-git clone https://github.com/firepick1/firenodejs /home/fireuser/ || fail
+git clone https://github.com/firepick1/firenodejs /home/fireuser/firenodejs || fail
 bash /home/fireuser/firenodejs/scripts/install.sh || fail
 
 
