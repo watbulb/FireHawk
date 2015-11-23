@@ -4,7 +4,7 @@ The system was benchmarked using nbench. While many may consider this outdated, 
 
 **Raspberry Pi Version 1**
 
-`TEST                : Iterations/sec.  : Old Index   : New Index
+_TEST                : Iterations/sec.  : Old Index   : New Index
                     :                  : Pentium 90* : AMD K6/233*
 --------------------:------------------:-------------:------------
 NUMERIC SORT        :           200.4  :       5.14  :       1.69
@@ -30,11 +30,11 @@ libc                : libc-2.13.so
 MEMORY INDEX        : 2.539
 INTEGER INDEX       : 3.121
 FLOATING-POINT INDEX: 1.960
-Baseline (LINUX)    : AMD K6/233*, 512 KB L2-cache, gcc 2.7.2.3, libc-5.4.38`
+Baseline (LINUX)    : AMD K6/233*, 512 KB L2-cache, gcc 2.7.2.3, libc-5.4.38_
 
 **Rasberry Pi Version 2**
 
-`TEST                : Iterations/sec.  : Old Index   : New Index
+_TEST                : Iterations/sec.  : Old Index   : New Index
                     :                  : Pentium 90* : AMD K6/233*
 --------------------:------------------:-------------:------------
 NUMERIC SORT        :          449.82  :      11.54  :       3.79
@@ -60,6 +60,6 @@ libc                : libc-2.19.so
 MEMORY INDEX        : 4.662
 INTEGER INDEX       : 6.453
 FLOATING-POINT INDEX: 5.046
-Baseline (LINUX)    : AMD K6/233*, 512 KB L2-cache, gcc 2.7.2.3, libc-5.4.38`
+Baseline (LINUX)    : AMD K6/233*, 512 KB L2-cache, gcc 2.7.2.3, libc-5.4.38_
 
 The Raspberry Pi 2 is 2x as fast
