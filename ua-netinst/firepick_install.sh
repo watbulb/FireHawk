@@ -103,7 +103,7 @@ cd ~ || fail
 usermod -aG video fireuser || fail
 
 # Install Firenodejs
-git clone https://github.com/firepick1/firenodejs /home/fireuser/firenodejs || fail
+git clone https://github.com/daytonpid/firenodejs.git /home/fireuser/firenodejs || fail
 bash /home/fireuser/firenodejs/scripts/install.sh || fail
 
 
