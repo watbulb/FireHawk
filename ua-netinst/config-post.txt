@@ -1,13 +1,3 @@
-# Device Selection #
-
-[pi1]
-kernel=kernel-rpi1_install.img
-initramfs installer-rpi1.cpio.gz
-device_tree=
-[pi2]
-kernel=kernel-rpi2_install.img
-initramfs installer-rpi2.cpio.gz
-
 # HDMI Properties #
 
 # uncomment if you get no picture on HDMI for a default "safe" mode
