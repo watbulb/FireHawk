@@ -104,8 +104,9 @@ usermod -aG video fireuser || fail
 
 # Install Firenodejs
 git clone https://github.com/daytonpid/firenodejs.git /home/fireuser/firenodejs || fail
+cd /home/fireuser/firenodejs || fail
 bash /home/fireuser/firenodejs/scripts/install.sh || fail
-
+cd ~ || fail
 
 
 graceful_exit
