@@ -1,0 +1,7 @@
+temp_limit=85
+force_turbo=0
+over_voltage=2
+arm_freq=1000
+core_freq=500
+sdram_freq=500
+gpu_mem=16
