@@ -32,13 +32,21 @@
 # ---------------------------------------------------------------------------
 PROGNAME=firepick_install
 clean_up() { # Perform pre-exit housekeeping
-  
+  apt-get clean
   return
 }
 
 error_exit() { # Echo then turn on power LED to incicate faliure
   echo -e "${1:-"Unknown Error"}" >&2
   echo default-on | sudo tee /sys/class/leds/led1/trigger >/dev/null
+  if [ -f ~/FireSight ]; then
+     rm -rf ~/FireSight   
+  fi
+
+  if [ -f ~/firenodejs ]; then
+     rm -rf ~/firenodejs   
+  fi
+
   clean_up
   exit 1
 }
@@ -77,6 +85,9 @@ success() { # Turn act LED on to indicate successful installation
   export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/sbin:/sbin || fail #export proper path
 
   echo default-on | sudo tee /sys/class/leds/led0/trigger >/dev/null || fail
+  sleep 60
+
+  reboot
   exit
 }
 
@@ -93,19 +104,19 @@ rm ${LOGFILE}.pipe
 # update and install packages
 sudo apt-get update || fail
 sudo apt-get upgrade || fail
-apt-get -y install raspi-copies-and-fills libraspberrypi-bin apt-utils rpi-update git build-essential libatlas-base-dev gfortran autoconf || fail # install needed packages
+apt-get -y install raspi-copies-and-fills libraspberrypi-bin apt-utils rpi-update git build-essential libatlas-base-dev gfortran autoconf streamer || fail # install needed packages
 
 # Install FireSight
 git clone https://github.com/daytonpid/FireSight.git /home/fireuser/FireSight || fail
 cd /home/fireuser/FireSight || fail
-bash build || fail
+bash build || error_exit
 cd ~ || fail
 usermod -aG video fireuser || fail
 
 # Install Firenodejs
 git clone https://github.com/daytonpid/firenodejs.git /home/fireuser/firenodejs || fail
 cd /home/fireuser/firenodejs || fail
-bash /home/fireuser/firenodejs/scripts/install.sh || fail
+bash /home/fireuser/firenodejs/scripts/install.sh || error_exit
 cd ~ || fail
 
 
