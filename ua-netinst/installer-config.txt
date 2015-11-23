@@ -1,4 +1,4 @@
-preset=base
+preset=server
 packages=
 mirror=http://mirrordirector.raspbian.org/raspbian/
 release=jessie
