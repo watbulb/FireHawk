@@ -527,26 +527,6 @@ rm bootfs/config-*
 mv bootfs/vmlinuz-${KERNEL_VERSION_RPI1} bootfs/kernel-rpi1_install.img
 mv bootfs/vmlinuz-${KERNEL_VERSION_RPI2} bootfs/kernel-rpi2_install.img
 
-if [ ! -f config.txt ] ; then
-    cp config.txt bootfs/
-fi
-
-if [ ! -f config-post.txt ] ; then
-    cp config-post.txt bootfs/
-fi
-
-if [ ! -f installer-config.txt ] ; then
-    cp installer-config.txt bootfs/
-fi
-
-if [ ! -f firepick_install.sh ] ; then
-    cp firepick_install.sh bootfs/
-fi
-
-if [ ! -f post-install.txt ] ; then
-    cp post-install.txt bootfs/
-fi
-
 create_cpio "rpi1"
 cp installer-rpi1.cpio.gz bootfs/
 echo "[pi1]" >> bootfs/config.txt
@@ -565,11 +545,23 @@ rm -rf tmp
 
 echo "consoleblank=0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 console=tty1" > bootfs/cmdline.txt
 
-if [ -f installer-config.txt ]; then
+if [ -f config.txt ] ; then
+    cp config.txt bootfs/
+fi
+
+if [ -f config-post.txt ] ; then
+    cp config-post.txt bootfs/
+fi
+
+if [ -f installer-config.txt ] ; then
     cp installer-config.txt bootfs/
 fi
 
-if [ -f post-install.txt ]; then
+if [ -f firepick_install.sh ] ; then
+    cp firepick_install.sh bootfs/
+fi
+
+if [ -f post-install.txt ] ; then
     cp post-install.txt bootfs/
 fi
 
@@ -578,7 +570,7 @@ if [ -d config ] ; then
     cp -r config/* bootfs/config
 fi
 
-ZIPFILE=raspbian-ua-netinst-`date +%Y%m%d`-git`git rev-parse --short @{0}`.zip
+ZIPFILE=firehawk-ua-netinst-`date +%Y%m%d`-git`git rev-parse --short @{0}`.zip
 rm -f $ZIPFILE
 
 cd bootfs && zip -r -9 ../$ZIPFILE *; cd ..
