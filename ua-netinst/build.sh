@@ -531,6 +531,10 @@ if [ ! -f config.txt ] ; then
     cp config.txt bootfs/
 fi
 
+if [ ! -f config-post.txt ] ; then
+    cp config-post.txt bootfs/
+fi
+
 if [ ! -f installer-config.txt ] ; then
     cp installer-config.txt bootfs/
 fi
