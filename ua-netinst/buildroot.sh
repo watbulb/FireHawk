@@ -2,7 +2,7 @@
 
 set -e
 
-IMG=raspbian-ua-netinst-`date +%Y%m%d`-git`git rev-parse --short @{0}`.img
+IMG=firehawk-ua-netinst-`date +%Y%m%d`.img
 
 rm -f $IMG
 rm -f $IMG.bz2
