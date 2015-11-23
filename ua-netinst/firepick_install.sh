@@ -76,6 +76,8 @@ fail() { # Turn power LED on to indicate faliure
 }
 
 success() { # Turn act LED on to indicate successful installation
+  echo "FirePick system install comlpete!"
+
   chmod -x /etc/init.d/firepick_install.sh || fail
   rm /etc/rc3.d/S99firepick_install || fail
 
@@ -96,24 +98,35 @@ success() { # Turn act LED on to indicate successful installation
 LOGFILE=/var/log/firepick_install.log
 
 # redirect stdout and stderr also to logfile
+
 mkfifo ${LOGFILE}.pipe
 tee < ${LOGFILE}.pipe $LOGFILE &
 exec &> ${LOGFILE}.pipe
 rm ${LOGFILE}.pipe
 
 # update and install packages
+
+echo "Updating and upgrading package lists . . ."
 sudo apt-get update || fail
 sudo apt-get upgrade || fail
+
+echo "installing dependencies and required packages . . ."
 apt-get -y install raspi-copies-and-fills libraspberrypi-bin apt-utils rpi-update git build-essential libatlas-base-dev gfortran autoconf streamer || fail # install needed packages
 
 # Install FireSight
+
+echo "Installing FireSight and it's dependencies . . ."
 git clone https://github.com/daytonpid/FireSight.git /home/fireuser/FireSight || fail
 cd /home/fireuser/FireSight || fail
 bash build || error_exit
 cd ~ || fail
 usermod -aG video fireuser || fail
 
+echo "Install success!"
+
 # Install Firenodejs
+
+echo "Installing firenodejs and it's dependencies . . ."
 git clone https://github.com/daytonpid/firenodejs.git /home/fireuser/firenodejs || fail
 cd /home/fireuser/firenodejs || fail
 bash /home/fireuser/firenodejs/scripts/install.sh || error_exit
