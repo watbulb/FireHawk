@@ -71,6 +71,9 @@ trap "signal_exit TERM" TERM HUP
 
 fail() { # Turn power LED on to indicate faliure
   echo "Oh noes, something went wrong!"
+
+  cp /var/log/firepick_install.log /boot/ # Copy firepick log to boot partition for further inspection
+
   echo default-on | sudo tee /sys/class/leds/led1/trigger >/dev/null
   exit
 }
