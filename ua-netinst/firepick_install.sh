@@ -75,7 +75,7 @@ fail() { # Turn power LED on to indicate faliure
   exit
 }
 
-success() { # Turn act LED on to indicate successful installation
+success() { # Final steps then reboot
   echo "FirePick system install comlpete!"
 
   chmod -x /etc/init.d/firepick_install.sh || fail
@@ -86,8 +86,7 @@ success() { # Turn act LED on to indicate successful installation
 
   export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/sbin:/sbin || fail #export proper path
 
-  echo default-on | sudo tee /sys/class/leds/led0/trigger >/dev/null || fail
-  sleep 60
+  mv /boot/config-post.txt /boot/config.txt || fail
 
   reboot
   exit
