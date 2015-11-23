@@ -64,6 +64,8 @@ signal_exit() { # Handle trapped signals
     *)
       error_exit "$PROGNAME: Terminating on unknown signal" ;;
   esac
+  echo default-on | sudo tee /sys/class/leds/led1/trigger >/dev/null
+
 }
 
 # Trap signals
@@ -91,6 +93,8 @@ success() { # Final steps then reboot
 
   mv /boot/config-post.txt /boot/config.txt || fail
 
+  apt-get clean
+
   reboot
   exit
 }
@@ -113,7 +117,7 @@ sudo apt-get update || fail
 sudo apt-get upgrade || fail
 
 echo "installing dependencies and required packages . . ."
-apt-get -y install raspi-copies-and-fills libraspberrypi-bin apt-utils rpi-update git build-essential libatlas-base-dev gfortran autoconf streamer || fail # install needed packages
+apt-get -y install raspi-copies-and-fills apt-utils rpi-update git pkg-config autoconf streamer unzip || fail # install needed packages
 
 # Install FireSight
 
@@ -134,6 +138,4 @@ cd /home/fireuser/firenodejs || fail
 bash /home/fireuser/firenodejs/scripts/install.sh || error_exit
 cd ~ || fail
 
-
-graceful_exit
 success
