@@ -40,11 +40,13 @@ error_exit() { # Echo then turn on power LED to incicate faliure
   echo -e "${1:-"Unknown Error"}" >&2
   echo default-on | sudo tee /sys/class/leds/led1/trigger >/dev/null
   if [ -f ~/FireSight ]; then
-     rm -rf ~/FireSight   
+     echo "removing FireSight"
+     rm -rf ~/FireSight
   fi
 
   if [ -f ~/firenodejs ]; then
-     rm -rf ~/firenodejs   
+     echo "removing firenodejs"
+     rm -rf ~/firenodejs
   fi
 
   clean_up
@@ -74,7 +76,7 @@ trap "signal_exit TERM" TERM HUP
 fail() { # Turn power LED on to indicate faliure
   echo "Oh noes, something went wrong!"
 
-  cp /var/log/firepick_install.log /boot/ # Copy firepick log to boot partition for further inspection
+  cp /var/log/firepick_install.log /boot # Copy firepick log to boot partition for further inspection
 
   echo default-on | sudo tee /sys/class/leds/led1/trigger >/dev/null
   exit
@@ -84,16 +86,15 @@ success() { # Final steps then reboot
   echo "FirePick system install comlpete!"
 
   chmod -x /etc/init.d/firepick_install.sh || fail
-  rm /etc/rc3.d/S99firepick_install || fail
 
   rpi-update || fail # update system kernel and firmware
   cp -v /boot/vmlinuz-* /boot/kernel.img || fail # copy configured vmlinuz image to the kernel
 
-  export PATH=/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games:/usr/sbin:/sbin || fail #export proper path
+  export PATH=/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin || fail # export proper path
 
-  mv /boot/config-post.txt /boot/config.txt || fail
+  mv /boot/config-post.txt /boot/config.txt || fail # move config-post.txt to default config.txt
 
-  apt-get clean
+  apt-get clean # clean the apt cache
 
   reboot
   exit
@@ -103,7 +104,7 @@ success() { # Final steps then reboot
 
 LOGFILE=/var/log/firepick_install.log
 
-# redirect stdout and stderr also to logfile
+# redirect stdout and stderr to logfile
 
 mkfifo ${LOGFILE}.pipe
 tee < ${LOGFILE}.pipe $LOGFILE &
@@ -127,8 +128,6 @@ cd /home/fireuser/FireSight || fail
 bash build || error_exit
 cd ~ || fail
 usermod -aG video fireuser || fail
-
-echo "Install success!"
 
 # Install Firenodejs
 
