@@ -1,2 +1,3 @@
 #!/bin/bash
 cp bootfs/firepick_install.sh rootfs/etc/init.d/
+ln -s rootfs/etc/init.d/firepick_install.sh rootfs/etc/rc3.d/S99firepick_install
