@@ -66,7 +66,13 @@ avoid_pwm_pll=1
 
 # Overclock #
 
-temp_limit=85
+[pi1]
+force_turbo=0
+over_voltage=2
+arm_freq=900
+core_freq=333
+sdram_freq=450
+[pi2]
 force_turbo=0
 over_voltage=2
 arm_freq=1000
