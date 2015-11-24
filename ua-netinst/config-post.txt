@@ -62,7 +62,11 @@ avoid_pwm_pll=1
 
 # SoundCard #
 
-#dtoverlay=RPi-bcm2835
+dtoverlay=RPi-bcm2835
+
+# DT Overlays #
+
+dtparam=i2c,i2s,spi
 
 # Overclock #
 
@@ -79,7 +83,3 @@ arm_freq=1000
 core_freq=500
 sdram_freq=500
 gpu_freq=350
-
-# DT Overlays #
-
-dtparam=i2c,i2s,spi
