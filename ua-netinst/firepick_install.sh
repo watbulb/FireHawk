@@ -116,7 +116,7 @@ sudo apt-get update || fail
 sudo apt-get upgrade || fail
 
 echo "installing dependencies and required packages . . ."
-apt-get -y install raspi-copies-and-fills apt-utils rpi-update git pkg-config autoconf streamer unzip gcc g++ || fail # install needed packages
+apt-get -y install raspi-copies-and-fills apt-utils rpi-update git pkg-config autoconf streamer unzip || fail # install needed packages
 
 # Install FireSight
 
