@@ -75,7 +75,6 @@ trap "signal_exit TERM" TERM HUP
 
 fail() { # Turn power LED on to indicate faliure
   echo "Oh noes, something went wrong!"
-
   cp /var/log/firepick_install.log /boot # Copy firepick log to boot partition for further inspection
 
   echo default-on | sudo tee /sys/class/leds/led1/trigger >/dev/null
@@ -84,7 +83,6 @@ fail() { # Turn power LED on to indicate faliure
 
 success() { # Final steps then reboot
   echo "FirePick system install comlpete!"
-
   chmod -x /etc/init.d/firepick_install.sh || fail
 
   rpi-update || fail # update system kernel and firmware
@@ -118,7 +116,7 @@ sudo apt-get update || fail
 sudo apt-get upgrade || fail
 
 echo "installing dependencies and required packages . . ."
-apt-get -y install raspi-copies-and-fills apt-utils rpi-update git pkg-config autoconf streamer unzip || fail # install needed packages
+apt-get -y install raspi-copies-and-fills apt-utils rpi-update git pkg-config autoconf streamer unzip gcc g++ || fail # install needed packages
 
 # Install FireSight
 
