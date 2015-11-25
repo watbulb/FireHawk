@@ -29,6 +29,8 @@ This installer with default settings configures eth0 (`ethernet port`) with DHCP
  - RPi CSI Camera
  - `Optional`: FireStep motion control board needed to interface machine with steppers
 
+ **Note:** The RPi CSI Camera is needed for the nodejs server to operate properly. It is recommended that you install it on your Pi before starting the install process.
+
 ## Writing the installer to the SD card
 ### Obtaining installer files on Windows and Mac
 Installer archive is around **17MB** and contains all firmware files and the installer.
@@ -75,9 +77,7 @@ Once the install has been completed you should be able to open up the nodejs web
 2. The Install is not yet finished
 3. There was an error in the FirePick packages installation
 
-Once the install is finished, your Pi will indicate so by flashing the ACT `green` LED on/off in one second intervals. If an error has occured the PWR LED will stay solid. If you would like to view the bootstrapping process in order to diagnose any issues that may have arisen in the raspbian install process you can either simply hookup the Pi to a display or if you have a serial cable, Open the img file by mounting it either by double clicking it for **Mac**, or running `mkdir /mnt/firehawk` followed by `mount -t fstype -o loop firehawk.img /mnt/firehawk` on **Linux**. Then remove 'console=tty1' at then end of the `cmdline.txt` file. Don't forget to eject it once you have finished editing, either by dragging the image to the trash for **Mac** or by running `umount /mnt/firehawk` followed by `rm -r /mnt/firehawk` on **Linux**.
-
-If you feel that there was an error in your installation. Please continue to troubleshooting.
+Once the install is finished, your Pi will indicate so by flashing the ACT `green` LED on/off in one second intervals. If an error has occured the PWR LED will stay solid. If you feel that there was an error in your installation, please continue to troubleshooting.
 
 **Note:** During the installation you'll see various warning messages, like "Warning: cannot read table of mounted file systems" and "dpkg: warning: ignoring pre-dependency problem!". Those are expected and harmless.
 
@@ -171,6 +171,10 @@ If you want to reinstall with the same settings you did your first install you c
     reboot
 
 **Remember to backup all your data and original config.txt before doing this!**
+
+## Troubleshooting
+
+If you would like to view the bootstrapping process in order to diagnose any issues that may have arisen in the raspbian install process you can either simply hookup the Pi to a display or if you have a serial cable, Open the img file by mounting it either by double clicking it for **Mac**, or running `mkdir /mnt/firehawk` followed by `mount -t fstype -o loop firehawk.img /mnt/firehawk` on **Linux**. Then remove 'console=tty1' at then end of the `cmdline.txt` file. Don't forget to eject it once you have finished editing, either by dragging the image to the trash for **Mac** or by running `umount /mnt/firehawk` followed by `rm -r /mnt/firehawk` on **Linux**.
 
 ## Disclaimer
 We take no responsibility for ANY data loss. You will be reflashing your SD card anyway so it should be very clear to you what you are doing and will lose all your data on the card. Same goes for reinstallation.
