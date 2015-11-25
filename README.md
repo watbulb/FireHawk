@@ -1,4 +1,4 @@
-# firehawk-ua-netinst
+# FireHawk
 
 <a><img src="http://cdn.warcraftpets.com/images/pets/big/blazing-firehawk.v9373.jpg" align="left" hspace="10" vspace="6" height="150" width="150" w></a>
 
