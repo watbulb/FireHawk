@@ -1,16 +1,12 @@
-preset=server
 packages=
 mirror=http://mirrordirector.raspbian.org/raspbian/
 release=jessie
 hostname=firepick
 boot_volume_label=FireHawk
-domainname=
-rootpw=
 disable_root=1
 username=fireuser
 userpw=firehawk
 user_is_admin=1
-cdebootstrap_cmdline=
 bootsize=+96M # /boot partition size in megabytes, provide it in the form '+<number>M' (without quotes)
 rootsize=     # / partition size in megabytes, provide it in the form '+<number>M' (without quotes), leave empty to use all free space
 timeserver=time.nist.gov
@@ -22,9 +18,6 @@ ip_addr=dhcp
 ip_netmask=0.0.0.0
 ip_broadcast=0.0.0.0
 ip_gateway=0.0.0.0
-ip_nameservers=0.0.0.0 # if you would like to use a specific DNS, enter it here
-drivers_to_load= # load specific kernel modules here
-online_config= # URL to extra config that will be executed after installer-config.txt
-usbroot= # set to 1 to install to first USB disk
+ip_nameservers=0.0.0.0 # if you would like to use a specific nameserver.
 cmdline="dwc_otg.lpm_enable=0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 console=tty1 elevator=deadline"
 rootfstype=ext4
