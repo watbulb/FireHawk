@@ -1,6 +1,6 @@
 # firehawk-ua-netinst
 
-<a><img src="http://cdn.warcraftpets.com/images/pets/big/blazing-firehawk.v9373.jpg" align="left" hspace="10" vspace="6></a>
+<a><img src="http://cdn.warcraftpets.com/images/pets/big/blazing-firehawk.v9373.jpg" align="left" hspace="10" vspace="6" height="150" width="150" w></a>
 
 The minimal unattended FirePick netinstaller for Raspberry Pi Model 1B, 1B+ and 2B.  
 
