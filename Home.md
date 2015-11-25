@@ -19,13 +19,13 @@ This installer with default settings configures eth0 (`ethernet port`) with DHCP
  - many locations including /tmp are mounted as tmpfs to improve speed
  - no clutter included, you only get the bare essential packages. Comparison can be seen here
  - option to install root to USB drive instead of a SD Card
-* [Benchmarks](https://github.com/daytonpid/FireHawk/wiki/Benchmarking)
+ - [Benchmarks](https://github.com/daytonpid/FireHawk/wiki/Benchmarking)
 
 
 ## Requirements
- - a Raspberry Pi Model 1B, Model 1B+ or Model 2B
+ - A Raspberry Pi Model 1B, Model 1B+ or Model 2B
  - SD card of at least 1GB or at least 500MB for USB root install
- - working Ethernet with Internet connectivity
+ - Working Ethernet with Internet connectivity
  - RPi CSI Camera
  - `Optional`: FireStep motion control board needed to interface machine with steppers
 
@@ -175,6 +175,8 @@ If you want to reinstall with the same settings you did your first install you c
 ## Troubleshooting
 
 If you would like to view the bootstrapping process in order to diagnose any issues that may have arisen in the raspbian install process you can either simply hookup the Pi to a display or if you have a serial cable, Open the img file by mounting it either by double clicking it for **Mac**, or running `mkdir /mnt/firehawk` followed by `mount -t fstype -o loop firehawk.img /mnt/firehawk` on **Linux**. Then remove 'console=tty1' at then end of the `cmdline.txt` file. Don't forget to eject it once you have finished editing, either by dragging the image to the trash for **Mac** or by running `umount /mnt/firehawk` followed by `rm -r /mnt/firehawk` on **Linux**.
+
+If the system has been successfully bootstrapped and you see a solid red LED on your Pi, this means there was a faliure during the FirePick installation. You can view the log file by using ssh to log into the Pi with `fireuser@ip` and navigate to /var/log, you should see a firepick_install.log. Or if you are on **Linux** or **Mac** you can download the log file to your computer by running `scp fireuser@ip:/var/log/firepick_install.log.`
 
 ## Disclaimer
 We take no responsibility for ANY data loss. You will be reflashing your SD card anyway so it should be very clear to you what you are doing and will lose all your data on the card. Same goes for reinstallation.
