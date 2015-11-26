@@ -18,9 +18,12 @@ This installer with default settings configures eth0 (`ethernet port`) with DHCP
  - Install includes fake-hwclock to save time on shutdown and bootup
  - Install includes NTP to keep time
  - Many locations including /tmp are mounted as tmpfs to improve speed
- - No clutter and bloatware included, you only get the bare essential packages. Comparison can be seen here
+ - No clutter and bloatware included, you only get the bare essential packages
  - Option to install root to USB drive instead of a SD Card
  - 512MB swap file
+
+ ### To be added
+ - NEON + VFP4 Optimized OpenCV
 
 
 ## Requirements
