@@ -1,0 +1,1 @@
+This project is a modified version of raspbian-ua-netinst.
