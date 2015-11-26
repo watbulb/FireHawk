@@ -83,7 +83,7 @@ Your Pi is not using your router as the default DNS, resulting in your computer 
 The default username is **fireuser** and the password is **firehawk**.
 
 > Set new password: `passwd`  (can also be set during installation using **userpw** in [installer-config.txt](#installer-customization)
-> Configure your default locale: `dpkg-reconfigure locales`  
+> Configure your default locale if needed: `dpkg-reconfigure locales`  
 > Configure your timezone: `dpkg-reconfigure tzdata`  
 
 The latest kernel and firmware packages are now automatically installed during the unattended installation process. If you need a kernel module that isn't loaded by default, you will still have to configure that manually in either the system or installer-config.
