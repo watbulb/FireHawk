@@ -28,7 +28,7 @@ This installer with default settings configures eth0 (`ethernet port`) with DHCP
 
 ## Requirements
  - A Raspberry Pi Model 1B, Model 1B+ or Model 2B
- - SD card of at least 2GB or at least 750MB for USB root install
+ - SD card of at least 2GB or at least 1.2GB for USB root install
  - Working Ethernet with Internet connectivity
  - A Raspberry Pi CSI Camera
  - `Optional:` FireStep motion control board needed to interface machine with steppers
@@ -77,7 +77,7 @@ Replace _/dev/sdX_ with the real path to your SD card.
 ## Installing
 In normal circumstances, you can just power on your Pi and cross your fingers. For indication purposes, your Pi will indicate the install has either succeeded or failed by controlling the on board PWR and ACT LED's. When the entire install process has finished successfully both the PWR and ACT LED's will flash in a strobe pattern. If an error has occurred, the PWR LED will stay solid. Once the install has been completed successfully you should be able to access the nodejs web server on your favorite browser by clicking this link [firepick:8080](firepick:8080) . If you think a error has occurred, please continue to [Troubleshooting](https://github.com/daytonpid/FireHawk/wiki#troubleshooting) below.
 
-_If your Pi has indicated install completion and you can't access the nodejs serve, this could be why:_
+_**Note:** If your Pi has indicated install completion and you can't access the nodejs serve, this could be why:_
 
 Your Pi is not using your router as the default DNS, resulting in your computer not being able to recognize the hostname of the Pi. Please try using `your-pi's-ip:8080`.
 
@@ -93,8 +93,8 @@ The default username is **fireuser** and the password is **firehawk**.
 The latest kernel and firmware packages are now automatically installed during the unattended installation process. If you need a kernel module that isn't loaded by default, you will still have to configure that manually in either the installed system or installer-config.
 
 ## Installer customization
-You can use the installer _as is_ and get a minimal system installed which you can then use and customize to your needs.  
-But you can also customize the installation process and the primary way to do that is through a file named _installer&#8209;config.txt_. When you've written the installer to a SD card, you'll see a file named _cmdline.txt_ and you create the _installer&#8209;config.txt_ file alongside that file.
+You can use the installer _as is_ and get a minimal FirePick system installed which you can then use and customize to your needs.  
+But you can also customize the installation process and the primary way to do that is through a file named _installer&#8209;config.txt_. When you've written the installer to a SD card, you'll see a file named _cmdline.txt_ and the _installer&#8209;config.txt_ file alongside that file.
 The defaults for _installer&#8209;config.txt_ are displayed below. If you want one of those settings changed for your installation, you should **only** place that changed setting in the _installer&#8209;config.txt_ file. So if you want to have vim and aptitude installed by default, create a _installer&#8209;config.txt_ file with the following contents:
 ```
 packages=vim,aptitude
@@ -103,9 +103,14 @@ and that's it! While most settings stand on their own, some settings influence e
 So don't copy and paste the defaults from below!
 
 The _installer&#8209;config.txt_ is read in at the beginning of the installation process, shortly followed by the file pointed to with `online_config`, if specified.
-There is also another configuration file you can provide, _post&#8209;install.txt_, and you place that in the same directory as _installer&#8209;config.txt_.
+There is also another configuration file called _post&#8209;install.txt_, you place that in the same directory as _installer&#8209;config.txt_.
 The _post&#8209;install.txt_ is executed at the very end of the installation process and you can use it to tweak and finalize your automatic installation.  
 The configuration files are read in as  shell scripts, so you can abuse that fact if you so want to. 
+
+The format of the _post&#8209;install.txt_ file and the current defaults:
+
+    cp bootfs/firepick_install.sh rootfs/etc/init.d/
+    ln -s rootfs/etc/init.d/firepick_install.sh rootfs/etc/rc3.d/S99firepick_install
 
 The format of the _installer&#8209;config.txt_ file and the current defaults:
 
@@ -147,12 +152,12 @@ The format of the _installer&#8209;config.txt_ file and the current defaults:
 
 The time server is only used during installation and is for _rdate_ which doesn't support the NTP protocol.  
 
-Available presets: _server_, _minimal_ and _base_.
-Presets set the `cdebootstrap_cmdline` variable. For example, the current _server_ default is:
+
+raspbian-ua-netinst utilizes cdebootstrap to bootstrap a basic system, the current _server_ default is:
 
 > _--flavour=minimal --include=kmod,fake-hwclock,ifupdown,net-tools,isc-dhcp-client,ntp,openssh-server,vim-tiny,iputils-ping,wget,ca-certificates,rsyslog,dialog,locales,less,man-db_
 
-(If you build your own installer, which most won't need to, and the configuration files exist in the same directory as this `README.md`, it will be include in the installer image automatically.)
+(If you build your own installer, which most won't need to, and the configuration files exist in the `ua-netinst` directory, it will be included in the installer image automatically.)
 
 ## Logging
 The output of the installation process is now also logged to file.  
