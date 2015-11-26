@@ -157,7 +157,7 @@ When the installation completes successfully, the logfile is moved to /var/log/r
 When an error occurs during install, the logfile is moved to the sd card, which gets normally mounted on /boot/ and will be named raspbian-ua-netinst-\<datetimestamp\>.log
 
 ## Reinstalling or replacing an existing system
-If you want to reinstall with the same settings you did your first install you can just move the original _config.txt_ back and reboot. Make sure you still have _kernel_install.img_ and _installer.cpio.gz_ in your _/boot_ partition. If you are replacing your existing system which was not installed using this method, make sure you copy those two files in and the installer _config.txt_ from the original image.
+If there was an error in your last install or if you want to reinstall with the same or edited settings, you can just move the original _config.txt_ back and reboot. Make sure you still have _kernel_install.img_ and _installer.cpio.gz_ in your _/boot_ partition. If you are replacing your existing system which was not installed using this method, make sure you copy those two files in and the installer _config.txt_ from the original image.
 
     mv /boot/config-reinstall.txt /boot/config.txt
     reboot
