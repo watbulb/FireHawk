@@ -22,7 +22,7 @@ This installer with default settings configures eth0 (`ethernet port`) with DHCP
  - Option to install root to USB drive instead of a SD Card
  - 512MB swap file
 
- ### To be added
+### To be added
  - NEON + VFP4 Optimized OpenCV
 
 
