@@ -78,6 +78,16 @@ _If your Pi has indicated install completion and you can't access the nodejs ser
 
 Your Pi is not using your router as the default DNS, resulting in your computer not being able to recognize the hostname of the Pi. Please try using `your-pi's-ip:8080`.
 
+## After Install
+
+The default username is **fireuser** and the password is **firehawk**.
+
+> Set new password: `passwd`  (can also be set during installation using **userpw** in [installer-config.txt](#installer-customization)
+> Configure your default locale: `dpkg-reconfigure locales`  
+> Configure your timezone: `dpkg-reconfigure tzdata`  
+
+The latest kernel and firmware packages are now automatically installed during the unattended installation process. If you need a kernel module that isn't loaded by default, you will still have to configure that manually in either the system or installer-config.
+
 ## Installer customization
 You can use the installer _as is_ and get a minimal system installed which you can then use and customize to your needs.  
 But you can also customize the installation process and the primary way to do that is through a file named _installer&#8209;config.txt_. When you've written the installer to a SD card, you'll see a file named _cmdline.txt_ and you create the _installer&#8209;config.txt_ file alongside that file.
@@ -144,16 +154,6 @@ Presets set the `cdebootstrap_cmdline` variable. For example, the current _serve
 The output of the installation process is now also logged to file.  
 When the installation completes successfully, the logfile is moved to /var/log/raspbian-ua-netinst.log on the installed system.  
 When an error occurs during install, the logfile is moved to the sd card, which gets normally mounted on /boot/ and will be named raspbian-ua-netinst-\<datetimestamp\>.log
-
-## After Install
-
-The default username is **fireuser** and the password is **firehawk**.
-
-> Set new password: `passwd`  (can also be set during installation using **userpw** in [installer-config.txt](#installer-customization))  
-> Configure your default locale: `dpkg-reconfigure locales`  
-> Configure your timezone: `dpkg-reconfigure tzdata`  
-
-The latest kernel and firmware packages are now automatically installed during the unattended installation process. If you need a kernel module that isn't loaded by default, you will still have to configure that manually in either the system or installer-config.
 
 ## Reinstalling or replacing an existing system
 If you want to reinstall with the same settings you did your first install you can just move the original _config.txt_ back and reboot. Make sure you still have _kernel_install.img_ and _installer.cpio.gz_ in your _/boot_ partition. If you are replacing your existing system which was not installed using this method, make sure you copy those two files in and the installer _config.txt_ from the original image.
