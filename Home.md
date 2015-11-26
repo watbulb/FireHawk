@@ -74,7 +74,7 @@ To flash your SD card on Linux:
 
 Replace _/dev/sdX_ with the real path to your SD card.
 
-## Installing
+## Installing `_**WARNING: NOT TESTED ON RASPBERRY PI 1**_`
 In normal circumstances, you can just power on your Pi and cross your fingers. For indication purposes, your Pi will indicate the install has either succeeded or failed by controlling the on board PWR and ACT LED's. When the entire install process has finished successfully both the PWR and ACT LED's will flash in a strobe pattern. If an error has occurred, the PWR LED will stay solid. If the install has been completed successfully you should be able to access the nodejs web server on your favorite browser by clicking this link [firepick:8080](firepick:8080) . If you think a error has occurred, please continue to [Troubleshooting](https://github.com/daytonpid/FireHawk/wiki#troubleshooting) below.
 
 _**Note:** If your Pi has indicated install completion and you can't access the nodejs server, this could be why:_
