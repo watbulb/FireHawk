@@ -75,9 +75,9 @@ To flash your SD card on Linux:
 Replace _/dev/sdX_ with the real path to your SD card.
 
 ## Installing
-In normal circumstances, you can just power on your Pi and cross your fingers. For indication purposes, your Pi will indicate the install has either succeeded or failed by controlling the on board PWR and ACT LED's. When the entire install process has finished successfully both the PWR and ACT LED's will flash in a strobe pattern. If an error has occurred, the PWR LED will stay solid. Once the install has been completed successfully you should be able to access the nodejs web server on your favorite browser by clicking this link [firepick:8080](firepick:8080) . If you think a error has occurred, please continue to [Troubleshooting](https://github.com/daytonpid/FireHawk/wiki#troubleshooting) below.
+In normal circumstances, you can just power on your Pi and cross your fingers. For indication purposes, your Pi will indicate the install has either succeeded or failed by controlling the on board PWR and ACT LED's. When the entire install process has finished successfully both the PWR and ACT LED's will flash in a strobe pattern. If an error has occurred, the PWR LED will stay solid. If the install has been completed successfully you should be able to access the nodejs web server on your favorite browser by clicking this link [firepick:8080](firepick:8080) . If you think a error has occurred, please continue to [Troubleshooting](https://github.com/daytonpid/FireHawk/wiki#troubleshooting) below.
 
-_**Note:** If your Pi has indicated install completion and you can't access the nodejs serve, this could be why:_
+_**Note:** If your Pi has indicated install completion and you can't access the nodejs server, this could be why:_
 
 Your Pi is not using your router as the default DNS, resulting in your computer not being able to recognize the hostname of the Pi. Please try using `your-pi's-ip:8080`.
 
@@ -114,36 +114,36 @@ The format of the _post&#8209;install.txt_ file and the current defaults:
 
 The format of the _installer&#8209;config.txt_ file and the current defaults:
 
-    preset=server
-    packages= # comma separated list of extra packages
+    preset=server # Do not change
+    packages= # Comma separated list of extra packages
     mirror=http://mirrordirector.raspbian.org/raspbian/
-    release=jessie
-    hostname=pi
-    boot_volume_label= # Sets the volume name of the boot partition. The volume name can be up to 11 characters long. The label is used by most OSes (Windows, Mac OSX and Linux) to identify the SD-card on the desktop and can be useful when using multiple SD-cards.
+    release=jessie # Release version
+    hostname=firepick # System hostname
+    boot_volume_label=FireHawk # Sets the volume name of the boot partition. The volume name can be up to 11 characters long. The label is used by most OSes (Windows, Mac OSX and Linux) to identify the SD-card on the desktop and can be useful when using multiple SD-cards.
     domainname=
-    rootpw=raspbian
+    rootpw= # Set root user password if used
     root_ssh_pubkey= # public SSH key for root; on Debian "jessie" the SSH password login will be disabled for root if set; the public SSH key must be on a single line, enclosed in quotes
-    disable_root= # set to 1 to disable root login (and password) altogether
-    username= # username of the user to create
-    userpw= # password to use for created user
-    user_ssh_pubkey= # public SSH key for created user; the public SSH key must be on a single line, enclosed in quotes
-    user_is_admin= # set to 1 to install sudo and make the user a sudo user
-    cdebootstrap_cmdline=
-    bootsize=+128M # /boot partition size in megabytes, provide it in the form '+<number>M' (without quotes)
+    disable_root=1 # set to 1 to disable root login (and password) altogether
+    username=fireuser # Do not change
+    userpw=firehawk # Password to use for created user
+    user_ssh_pubkey= # Public SSH key for created user; the public SSH key must be on a single line, enclosed in quotes
+    user_is_admin=1 # Set to 1 to install sudo and make the user a sudo user
+    cdebootstrap_cmdline= # Cdebootstrap extra parameters
+    bootsize=+96M # /boot partition size in megabytes, provide it in the form '+<number>M' (without quotes)
     rootsize=     # / partition size in megabytes, provide it in the form '+<number>M' (without quotes), leave empty to use all free space
     timeserver=time.nist.gov
-    timezone=Etc/UTC # set to desired timezone (e.g. Europe/Ljubljana)
-    locales=  # a space delimited list of locales that will be generated during install (e.g. "en_US.UTF-8 nl_NL sl_SI.UTF-8")
-    system_default_locale= # the default system locale to set (using the LANG environment variable)
-    ifname=eth0
-    ip_addr=dhcp
+    timezone=Etc/UTC # set to desired timezone (e.g. America/Edmonton)
+    locales=  # A space delimited list of locales that will be generated during install (e.g. "en_US.UTF-8 nl_NL sl_SI.UTF-8")
+    system_default_locale=en_CA.UTF-8 # The default system locale to set (using the LANG environment variable)
+    ifname=eth0 # Interface name to use for network connection
+    ip_addr=dhcp # Set ip lease request to either dhcp or static ip. If static type in desired ip here.
     ip_netmask=0.0.0.0
     ip_broadcast=0.0.0.0
     ip_gateway=0.0.0.0
     ip_nameservers=
-    drivers_to_load=
+    drivers_to_load= # Extra kernel modules to load
     online_config= # URL to extra config that will be executed after installer-config.txt
-    usbroot= # set to 1 to install to first USB disk
+    usbroot= # Set to 1 to install to first USB disk
     cmdline="dwc_otg.lpm_enable=0 console=ttyAMA0,115200 kgdboc=ttyAMA0,115200 console=tty1 elevator=deadline"
     rootfstype=ext4
     rootfs_mkfs_options=
