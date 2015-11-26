@@ -72,7 +72,7 @@ To flash your SD card on Linux:
 Replace _/dev/sdX_ with the real path to your SD card.
 
 ## Installing
-In normal circumstances, you can just power on your Pi and cross your fingers. For indication purposes, your Pi will indicate the install has either succeeded or failed by controlling the on board PWR and ACT LED's. When the entire install process has finished successfully both the PWR and ACT LED's will flash in a strobe pattern. If an error has occurred, the PWR LED will stay solid. Once the install has been completed successfully you should be able to access the nodejs webserver on your favorite browser by clicking this link [firepick:8080](firepick:8080)
+In normal circumstances, you can just power on your Pi and cross your fingers. For indication purposes, your Pi will indicate the install has either succeeded or failed by controlling the on board PWR and ACT LED's. When the entire install process has finished successfully both the PWR and ACT LED's will flash in a strobe pattern. If an error has occurred, the PWR LED will stay solid. Once the install has been completed successfully you should be able to access the nodejs web server on your favorite browser by clicking this link [firepick:8080](firepick:8080) . If you think a error has occurred, please continue to Troubleshooting below 
 
 _If your Pi has indicated install completion and you can't access the nodejs serve, this could be why:_
 
@@ -83,10 +83,11 @@ Your Pi is not using your router as the default DNS, resulting in your computer 
 The default username is **fireuser** and the password is **firehawk**.
 
 > Set new password: `passwd`  (can also be set during installation using **userpw** in [installer-config.txt](#installer-customization)
+
 > Configure your default locale if needed: `dpkg-reconfigure locales`  
 > Configure your timezone: `dpkg-reconfigure tzdata`  
 
-The latest kernel and firmware packages are now automatically installed during the unattended installation process. If you need a kernel module that isn't loaded by default, you will still have to configure that manually in either the system or installer-config.
+The latest kernel and firmware packages are now automatically installed during the unattended installation process. If you need a kernel module that isn't loaded by default, you will still have to configure that manually in either the installed system or installer-config.
 
 ## Installer customization
 You can use the installer _as is_ and get a minimal system installed which you can then use and customize to your needs.  
