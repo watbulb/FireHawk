@@ -94,7 +94,11 @@ success() { # Final steps then reboot
 
   apt-get clean || fail # clean the apt cache
 
-  node 
+  dd if=/dev/zero of=/swap bs=1M count=512 && mkswap /swap || fail # Create swap file
+
+  echo "/swap none swap sw 0 0" >> /etc/fstab  || fail # Appending swap info to fstab
+
+  su - fireuser -s/bin/bash -c node /home/fireuser/firenodejs/js/server.js
 
   modprobe ledtrig_heartbeat
   echo heartbeat | sudo tee /sys/class/leds/led1/trigger >/dev/null # }
