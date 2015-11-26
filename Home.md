@@ -7,29 +7,30 @@ This installer with default settings configures eth0 (`ethernet port`) with DHCP
 - `FireStep`
 
 ## Features
- - completely unattended, you only need working Internet connection through the Ethernet port
- - DHCP and static ip configuration (DHCP is the default)
- - always installs the latest version of Raspbian
- - configurable default settings
- - extra configuration over HTTP possible - gives unlimited flexibility
- - installation takes about **45 minutes** with fast Internet from power on to nodejs server running
- - can fit on 1GB SD card, but 2GB is more reasonable
- - install includes fake-hwclock to save time on shutdown
- - install includes NTP to keep time
- - many locations including /tmp are mounted as tmpfs to improve speed
- - no clutter included, you only get the bare essential packages. Comparison can be seen here
- - option to install root to USB drive instead of a SD Card
- - [Benchmarks](https://github.com/daytonpid/FireHawk/wiki/Benchmarking)
+ - Completely unattended, you only need working Internet connection through the Ethernet port
+ - DHCP and static IP configuration (DHCP is the default)
+ - Always installs the latest version of Raspbian and FirePick packages
+ - Configurable default settings
+ - Extra configuration over HTTP possible - gives unlimited flexibility
+ - Installation takes about **45 minutes** with fast Internet from power on to nodejs server running
+ - Boots in less than 15 seconds
+ - Can fit on a 2GB SD card
+ - Install includes fake-hwclock to save time on shutdown and bootup
+ - Install includes NTP to keep time
+ - Many locations including /tmp are mounted as tmpfs to improve speed
+ - No clutter and bloatware included, you only get the bare essential packages. Comparison can be seen here
+ - Option to install root to USB drive instead of a SD Card
+ - 512MB swap file
 
 
 ## Requirements
  - A Raspberry Pi Model 1B, Model 1B+ or Model 2B
- - SD card of at least 1GB or at least 500MB for USB root install
+ - SD card of at least 2GB or at least 750MB for USB root install
  - Working Ethernet with Internet connectivity
- - RPi CSI Camera
- - `Optional`: FireStep motion control board needed to interface machine with steppers
+ - A Raspberry Pi CSI Camera
+ - `Optional:` FireStep motion control board needed to interface machine with steppers
 
- **Note:** The RPi CSI Camera is needed for the nodejs server to operate properly. It is recommended that you install it on your Pi before starting the install process.
+ _**Note:** The Raspberry Pi CSI Camera is needed for firenodejs to run properly. It is recommended that you install it on your Pi before starting the install process._
 
 ## Writing the installer to the SD card
 ### Obtaining installer files on Windows and Mac
@@ -37,8 +38,10 @@ Installer archive is around **17MB** and contains all firmware files and the ins
 
 Go to [our latest release page](https://github.com/debian-pi/raspbian-ua-netinst/releases/latest) and download the .zip file.
 
-Format your SD card as **FAT32** (MS-DOS on _Mac OS X_) and extract the installer files in.  
-**Note:** If you get an error saying it can't mount /dev/mmcblk0p1 on /boot then the most likely cause is that you're using exFAT instead of FAT32.
+Format your SD card as **FAT32** (MS-DOS on _Mac OS X_) and extract the installer files in.
+
+_**Note:** If you get an error saying it can't mount /dev/mmcblk0p1 on /boot then the most likely cause is that you're using exFAT instead of FAT32._
+
 Try formatting the SD card with this tool: https://www.sdcard.org/downloads/formatter_4/
 
 ### Alternative method for Mac, writing image to SD card
@@ -52,10 +55,10 @@ Find the _/dev/diskX_ device you want to write to using `diskutil list`. It will
 To flash your SD card on Mac:
 
     diskutil unmountDisk /dev/diskX
-    sudo dd bs=1m if=/path/to/raspbian-ua-netinst-<latest-version-number>.img of=/dev/rdiskX
+    sudo dd bs=1m if=/path/to/firehawk-ua-netinst-<latest-version-date>.img of=/dev/rdiskX
     diskutil eject /dev/diskX
 
-_Note the **r** in the of=/dev/rdiskX part on the dd line which should speed up writing the image considerably._
+_**Note:** the **r** in the of=/dev/rdiskX part on the dd line which should speed up writing the image considerably._
 
 ### SD card image for Linux
 Prebuilt image is around **11MB** xz compressed and **64MB** uncompressed. It contains the same files as the .zip but is more convenient for Linux users.
@@ -64,22 +67,16 @@ Go to [our latest release page](https://github.com/debian-pi/raspbian-ua-netinst
 
 To flash your SD card on Linux:
 
-    xzcat /path/to/raspbian-ua-netinst-<latest-version-number>.img.xz > /dev/sdX
+    xzcat /path/to/firehawk-ua-netinst-<latest-version-date>.img.xz > /dev/sdX
 
 Replace _/dev/sdX_ with the real path to your SD card.
 
 ## Installing
-In normal circumstances, you can just power on your Pi and cross your fingers.
+In normal circumstances, you can just power on your Pi and cross your fingers. For indication purposes, your Pi will indicate the install has either succeeded or failed by controlling the on board PWR and ACT LED's. When the entire install process has finished successfully both the PWR and ACT LED's will flash in a strobe pattern. If an error has occurred, the PWR LED will stay solid. Once the install has been completed successfully you should be able to access the nodejs webserver on your favorite browser by clicking this link [firepick:8080](firepick:8080)
 
-Once the install has been completed you should be able to open up the nodejs webserver on you favorite browser by clicking this link [firepick:8080](firepick:8080) If this does not work there are a few likely answers to this:
+_If your Pi has indicated install completion and you can't access the nodejs serve, this could be why:_
 
-1. Your Pi is not using your router as the default DNS, resulting in your computer not being able to recognize the hostname of the Pi
-2. The Install is not yet finished
-3. There was an error in the FirePick packages installation
-
-Once the install is finished, your Pi will indicate so by flashing the ACT `green` LED on/off in one second intervals. If an error has occured the PWR LED will stay solid. If you feel that there was an error in your installation, please continue to troubleshooting.
-
-**Note:** During the installation you'll see various warning messages, like "Warning: cannot read table of mounted file systems" and "dpkg: warning: ignoring pre-dependency problem!". Those are expected and harmless.
+Your Pi is not using your router as the default DNS, resulting in your computer not being able to recognize the hostname of the Pi. Please try using `your-pi's-ip:8080`.
 
 ## Installer customization
 You can use the installer _as is_ and get a minimal system installed which you can then use and customize to your needs.  
@@ -148,21 +145,15 @@ The output of the installation process is now also logged to file.
 When the installation completes successfully, the logfile is moved to /var/log/raspbian-ua-netinst.log on the installed system.  
 When an error occurs during install, the logfile is moved to the sd card, which gets normally mounted on /boot/ and will be named raspbian-ua-netinst-\<datetimestamp\>.log
 
-## First boot
-The system is almost completely unconfigured on first boot. Here are some tasks you most definitely want to do on first boot.
+## After Install
 
-The default **root** password is **raspbian**.
+The default username is **fireuser** and the password is **firehawk**.
 
-> Set new root password: `passwd`  (can also be set during installation using **rootpw** in [installer-config.txt](#installer-customization))  
+> Set new password: `passwd`  (can also be set during installation using **userpw** in [installer-config.txt](#installer-customization))  
 > Configure your default locale: `dpkg-reconfigure locales`  
 > Configure your timezone: `dpkg-reconfigure tzdata`  
 
-The latest kernel and firmware packages are now automatically installed during the unattended installation process.
-When you need a kernel module that isn't loaded by default, you will still have to configure that manually.
-
-> Optional: `apt-get install raspi-copies-and-fills` for improved memory management performance.  
-> Optional: Create a swap file with `dd if=/dev/zero of=/swap bs=1M count=512 && mkswap /swap` (example is 512MB) and enable it on boot by appending `/swap none swap sw 0 0` to `/etc/fstab`.  
-> Optional: `apt-get install rng-tools` and add `bcm2708-rng` to `/etc/modules` to auto-load and use the kernel module for the hardware random number generator. This improves the performance of various server applications needing random numbers significantly.
+The latest kernel and firmware packages are now automatically installed during the unattended installation process. If you need a kernel module that isn't loaded by default, you will still have to configure that manually in either the system or installer-config.
 
 ## Reinstalling or replacing an existing system
 If you want to reinstall with the same settings you did your first install you can just move the original _config.txt_ back and reboot. Make sure you still have _kernel_install.img_ and _installer.cpio.gz_ in your _/boot_ partition. If you are replacing your existing system which was not installed using this method, make sure you copy those two files in and the installer _config.txt_ from the original image.
@@ -174,9 +165,19 @@ If you want to reinstall with the same settings you did your first install you c
 
 ## Troubleshooting
 
-If you would like to view the bootstrapping process in order to diagnose any issues that may have arisen in the raspbian install process you can either simply hookup the Pi to a display or if you have a serial cable, Open the img file by mounting it either by double clicking it for **Mac**, or running `mkdir /mnt/firehawk` followed by `mount -t fstype -o loop firehawk.img /mnt/firehawk` on **Linux**. Then remove 'console=tty1' at then end of the `cmdline.txt` file. Don't forget to eject it once you have finished editing, either by dragging the image to the trash for **Mac** or by running `umount /mnt/firehawk` followed by `rm -r /mnt/firehawk` on **Linux**.
+**FireHawk is still in Beta, so bugs are to be expected.**
 
-If the system has been successfully bootstrapped and you see a solid red LED on your Pi, this means there was a faliure during the FirePick installation. You can view the log file by using ssh to log into the Pi with `ssh fireuser@ip` and navigate to /var/log, you should see a firepick_install.log. Or if you are on **Linux** or **Mac** you can download the log file to your computer by running `scp fireuser@ip:/var/log/firepick_install.log.`
+If you would like to view the bootstrapping process in order to diagnose any issues that may have arisen in the raspbian install process you can either simply hookup the Pi to a display or if you have a serial cable, open the img file by mounting it either by double clicking it for **Mac**, or running `mkdir /mnt/firehawk` followed by `mount -t fstype -o loop firehawk.img /mnt/firehawk` on **Linux**. Then remove 'console=tty1' at then end of the `cmdline.txt` file. Don't forget to eject it once you have finished editing, either by dragging the image to the trash for **Mac** or by running `umount /mnt/firehawk` followed by `rm -r /mnt/firehawk` on **Linux**.
+
+
+### Fix if system failed FirePick install:
+
+- If the system has been successfully bootstrapped and you see a solid red LED on your Pi, this means there was a faliure during the FirePick installation. You can view the log file on **Windows** by using ssh to log into the Pi with `ssh fireuser@ip` and navigate to `/var/log/`, you should see a `firepick_install.log` and can read it with either `cat` or `editor`. If you are on **Linux** / **Mac** you can download the log file to your computer by running `scp fireuser@ip:/var/log/firepick_install.log /savepoint`
+
+### Fix if system failed bootstrap: 
+
+- In the extremely rare case that the bootstrap has failed you have some options. The easiest method would be to remove the SD card from the Pi and insert it into a card reader on a separate machine. Access the card and view the error log `raspbian-ua-netinst-\<datetimestamp\>.log` in the root directory.
+ 
 
 ## Disclaimer
 We take no responsibility for ANY data loss. You will be reflashing your SD card anyway so it should be very clear to you what you are doing and will lose all your data on the card. Same goes for reinstallation.
