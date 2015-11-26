@@ -39,14 +39,14 @@ clean_up() { # Perform pre-exit housekeeping
 error_exit() { # Echo then turn on power LED to incicate faliure
   echo -e "${1:-"Unknown Error"}" >&2
   echo default-on | sudo tee /sys/class/leds/led1/trigger >/dev/null
-  if [ -f ~/FireSight ]; then
+  if [ -f /home/fireuser/FireSight ]; then
      echo "removing FireSight"
-     rm -rf ~/FireSight
+     rm -rf /home/fireuser/FireSight
   fi
 
-  if [ -f ~/firenodejs ]; then
+  if [ -f /home/fireuser/firenodejs ]; then
      echo "removing firenodejs"
-     rm -rf ~/firenodejs
+     rm -rf /home/fireuser/firenodejs
   fi
 
   clean_up
@@ -66,7 +66,7 @@ signal_exit() { # Handle trapped signals
     *)
       error_exit "$PROGNAME: Terminating on unknown signal" ;;
   esac
-  echo default-on | sudo tee /sys/class/leds/led1/trigger >/dev/null
+  echo default-on | sudo tee /sys/class/leds/led1/trigger >/dev/null 
 
 }
 
@@ -74,10 +74,10 @@ signal_exit() { # Handle trapped signals
 trap "signal_exit TERM" TERM HUP
 
 fail() { # Turn power LED on to indicate faliure
-  echo "Oh noes, something went wrong!"
-  cp /var/log/firepick_install.log /boot # Copy firepick log to boot partition for further inspection
-
   echo default-on | sudo tee /sys/class/leds/led1/trigger >/dev/null
+  echo "Oh noes, something went wrong! Copying log file to /boot . . ."
+  cp /var/log/firepick_install.log /boot || echo "There was an error copying the logfile to /boot!" # Copy firepick log to boot partition for further inspection
+
   exit
 }
 
@@ -92,9 +92,14 @@ success() { # Final steps then reboot
 
   mv /boot/config-post.txt /boot/config.txt || fail # move config-post.txt to default config.txt
 
-  apt-get clean # clean the apt cache
+  apt-get clean || fail # clean the apt cache
 
-  reboot
+  node 
+
+  modprobe ledtrig_heartbeat
+  echo heartbeat | sudo tee /sys/class/leds/led1/trigger >/dev/null # }
+  sleep 0.05                                                        # --- Pulse strobe LED's to indicate success
+  echo heartbeat | sudo tee /sys/class/leds/led0/trigger >/dev/null # }
   exit
 }
 
