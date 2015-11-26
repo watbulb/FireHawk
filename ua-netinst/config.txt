@@ -6,7 +6,6 @@ over_voltage=2
 arm_freq=900
 core_freq=333
 sdram_freq=450
-gpu_mem=16
 [pi2]
 kernel=kernel-rpi2_install.img
 initramfs installer-rpi2.cpio.gz
@@ -15,4 +14,3 @@ over_voltage=2
 arm_freq=1000
 core_freq=500
 sdram_freq=500
-gpu_mem=16
