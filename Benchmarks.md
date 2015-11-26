@@ -2,11 +2,11 @@ The system was benchmarked using nbench. While many may consider this outdated, 
 
 # Benchmarks
 
-**Raspberry Pi Version 1**
+**Raspberry Pi Version 1 on Raspbian**
 
 [[images/Raspberry_Pi_1.png]]
 
-**Rasberry Pi Version 2**
+**Rasberry Pi Version 2 on FireHawk**
 
 [[images/Raspberry_Pi_2.png]]
 
