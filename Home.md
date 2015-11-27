@@ -175,6 +175,7 @@ If there was an error in your last install or if you want to reinstall with the 
 ## Troubleshooting
 
 **FireHawk is still in beta, so bugs are to be expected.**
+**Please open an issue if you find any bugs, thank you.**
 
 If you would like to view the bootstrapping process in order to diagnose any issues that may have arisen in the raspbian install process you can either simply hookup the Pi to a display or if you have a serial cable, open the img file by mounting it either by double clicking it for **Mac**, or running `mkdir /mnt/firehawk` followed by `mount -t fstype -o loop firehawk.img /mnt/firehawk` on **Linux**. Then remove 'console=tty1' at then end of the `cmdline.txt` file. Don't forget to eject it once you have finished editing, either by dragging the image to the trash for **Mac** or by running `umount /mnt/firehawk` followed by `rm -r /mnt/firehawk` on **Linux**.
 
