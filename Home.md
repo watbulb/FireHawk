@@ -1,4 +1,4 @@
-# FireHawk
+# FireHawk **Don't trust anything you read here as this is a WIP**
 
 This installer with default settings configures eth0 (`ethernet port`) with DHCP to get Internet connectivity and completely wipes the SD card from any previous installation. It will bootstrap a minimal Raspbian. Once completed the following FirePick packages will be installed and a system update of firmware and kernel will be performed.
 
