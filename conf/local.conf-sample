@@ -1,0 +1,52 @@
+# Local configuration for meta-raspberrypi images
+# Yocto Project 2.0.1 Poky distribution [jethro] branch
+# This is a sysvinit system
+
+LICENSE_FLAGS_WHITELIST = "commercial"
+
+DISTRO_FEATURES_append = " systemd"
+DISTRO_FEATURES_remove = "bluetooth bluez5 pcmcia irda xattr zeroconf pci 3g nfs nfc pulseaudio"
+
+PREFERRED_PROVIDER_jpeg = "libjpeg-turbo"
+PREFERRED_PROVIDER_jpeg-native = "libjpeg-turbo-native"
+
+PREFERRED_PROVIDER_udev = "systemd"
+VIRTUAL_RUNTIME_init_manager = "sysvinit"
+
+MACHINE_FEATURES_remove = "apm"
+
+IMAGE_FSTYPES = "tar.bz2"
+
+# the default is 4.1.x
+PREFERRED_VERSION_linux-raspberrypi = "4.4.%"
+#PREFERRED_VERSION_linux-raspberrypi = "4.5.%"
+
+MACHINE = "raspberrypi2"
+
+#DL_DIR = "/oe-sources"
+
+#SSTATE_DIR = "/oe4/rpi/sstate-cache"
+
+#TMPDIR = "/oe4/rpi/tmp-jethro"
+
+DISTRO = "poky"
+
+PACKAGE_CLASSES = "package_ipk"
+
+DISABLE_OVERSCAN = "1"
+DISPMANX_OFFLINE = "1"
+ENABLE_SPI_BUS = "1"
+ENABLE_RPI3_SERIAL_CONSOLE = "1"
+
+# i686 or x86_64
+SDKMACHINE = "x86_64"
+
+EXTRA_IMAGE_FEATURES = "debug-tweaks"
+
+USER_CLASSES = "image-mklibs image-prelink"
+
+PATCHRESOLVE = "noop"
+
+RM_OLD_IMAGE = "1"
+
+CONF_VERSION = "1"
