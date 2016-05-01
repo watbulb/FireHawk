@@ -30,19 +30,10 @@ DEV_SDK_INSTALL = " \
     binutils \
     binutils-symlinks \
     coreutils \
-    cpp \
-    cpp-symlinks \
-    diffutils \
     file \
-    gcc \
-    gcc-symlinks \
-    g++ \
-    g++-symlinks \
     gettext \
     git \
     ldd \
-    libstdc++ \
-    libstdc++-dev \
     libtool \
     make \
     perl-modules \
@@ -53,8 +44,6 @@ DEV_SDK_INSTALL = " \
 DEV_EXTRAS = " \
     ntp \
     ntp-tickadj \
-    serialecho \
-    spiloop \
     zeromq \
     zeromq-dev \
  "
@@ -62,32 +51,18 @@ DEV_EXTRAS = " \
 EXTRA_TOOLS_INSTALL = " \
     bc \
     bzip2 \
-    devmem2 \
     dosfstools \
-    ethtool \
-    findutils \
     i2c-tools \
-    iftop \
-    iperf \
-    htop \
     less \
     nano \
-    procps \
-    rsync \
-    sysfsutils \
-    tcpdump \
     unzip \
     util-linux \
-    vim-tiny \
     wget \
-    zip \
  "
 
 RPI_STUFF = " \
     bcm2835-tests \
     rpio \
-    rpi-gpio \
-    pi-blaster \
     userland \
  "
 
@@ -113,4 +88,4 @@ ROOTFS_POSTPROCESS_COMMAND += " \
     disable_bootlogd ; \
  "
 
-export IMAGE_BASENAME = "console-image"
+export IMAGE_BASENAME = "firehawk-image"
