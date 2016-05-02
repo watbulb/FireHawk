@@ -14,7 +14,7 @@ do_deploy_append() {
         echo "dtoverlay=pi3-disable-bt-overlay.dtb" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
     fi
 
-    if [-n "${MAX_USB_CURRNET}" ]; then
+    if [-n "${MAX_USB_CURRENT}" ]; then
         echo "" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
         echo "## avoid limiting usb current" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
         echo "max_usb_current=0" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
