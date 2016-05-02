@@ -1,4 +1,5 @@
-# FireHawk **Don't trust anything you read here as this is a WIP**
+# FireHawk 
+### This wiki currently only supplies information for the raspbian Firehawk distribution, and will eventually become legacy information. Stay tuned for a new wiki containing all relavent information regarding a yocto distribution of Firehawk.
 
 This installer with default settings configures eth0 (`ethernet port`) with DHCP to get Internet connectivity and completely wipes the SD card from any previous installation. It will bootstrap a minimal Raspbian. Once completed the following FirePick packages will be installed and a system update of firmware and kernel will be performed.
 
