@@ -1,2 +1,7 @@
 *.swp
+*.lock
 *~
+sanity_info
+templateconfig.cfg
+cache/
+buildhistory/
