@@ -10,4 +10,4 @@ The system was benchmarked using nbench. While many may consider this outdated, 
 
 [[images/Raspberry_Pi_2.png]]
 
-The Raspberry Pi 2 is 2x-4x faster
+The Raspberry Pi 2 is 2x-4x faster than the the Pi Model 1 Rev. B
