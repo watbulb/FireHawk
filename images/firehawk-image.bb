@@ -2,7 +2,7 @@ SUMMARY = "A console development image with some C/C++ dev tools"
 HOMEPAGE = "http://www.jumpnowtek.com"
 LICENSE = "MIT"
 
-IMAGE_FEATURES += "package-management splash"
+IMAGE_FEATURES += "package-management"
 IMAGE_LINGUAS = "en-us"
 
 inherit core-image
@@ -36,26 +36,28 @@ DEV_SDK_INSTALL = " \
     ldd \
     libtool \
     make \
+    cmake \
+    automake \
     perl-modules \
     pkgconfig \
-    python-modules \
  "
 
 DEV_EXTRAS = " \
     ntp \
     ntp-tickadj \
-    zeromq \
-    zeromq-dev \
+    nbench-byte \
  "
 
 EXTRA_TOOLS_INSTALL = " \
     bc \
     bzip2 \
     dosfstools \
+    e2fsprogs \
     i2c-tools \
     less \
     nano \
     unzip \
+    htop \
     util-linux \
     wget \
  "
