@@ -1,5 +1,5 @@
-SUMMARY = "A console development image with some C/C++ dev tools"
-HOMEPAGE = "http://www.jumpnowtek.com"
+SUMMARY = "Current FireHawk development package"
+HOMEPAGE = "https://github.com/daytonpid/FireHawk"
 LICENSE = "MIT"
 
 IMAGE_FEATURES += "package-management"
@@ -13,8 +13,8 @@ DEPENDS += "bcm2835-bootfiles"
 CORE_OS = " \
     openssh openssh-keygen openssh-sftp-server \
     term-prompt \
-#    resize2fs \
     tzdata \
+    resize-rootfs \
  "
 
 WIFI_SUPPORT = " \
@@ -46,6 +46,7 @@ DEV_SDK_INSTALL = " \
     make \
     cmake \
     automake \
+    autoconf \
     pkgconfig \
  "
 
@@ -59,11 +60,14 @@ EXTRA_TOOLS_INSTALL = " \
     bc \
     bzip2 \
     dosfstools \
+    ZBar \
+    e2fsprogs-resize2fs \
     i2c-tools \
     less \
     nano \
     unzip \
     htop \
+    parted \
     util-linux \
     wget \
     packagegroup-core-boot \
@@ -71,7 +75,6 @@ EXTRA_TOOLS_INSTALL = " \
 
 RPI_STUFF = " \
     bcm2835-tests \
-    rpio \
     userland \
  "
 
@@ -94,6 +97,7 @@ disable_bootlogd() {
 
 EXTRA_USERS_PARAMS = " \
         useradd -P firehawk firehawk \
+        usermod -a -G video firehawk \
         usermod -L root \
   "
 
