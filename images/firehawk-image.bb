@@ -15,6 +15,8 @@ CORE_OS = " \
     term-prompt \
     tzdata \
     resize-rootfs \
+    sudo \
+    sudoers-enable-group \
  "
 
 WIFI_SUPPORT = " \
@@ -96,9 +98,11 @@ disable_bootlogd() {
 }
 
 EXTRA_USERS_PARAMS = " \
-        useradd -P firehawk firehawk \
-        usermod -a -G video firehawk \
-        usermod -L root \
+        useradd -P '' firehawk; \
+        groupadd sudo ; \
+        groupadd wheel; \
+        usermod -a -G wheel,video,sudo firehawk; \
+        usermod -L root; \
   "
 
 ROOTFS_POSTPROCESS_COMMAND += " \
