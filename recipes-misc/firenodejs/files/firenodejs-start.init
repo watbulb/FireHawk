@@ -1,0 +1,16 @@
+#!/bin/sh
+#
+# firenodejs_start.init
+#
+# Print the IP address
+
+_IP=$(hostname -I) || true
+if [ "$_IP" ]; then
+  printf "My IP address is %s\n" "$_IP"
+fi
+
+mount -t tmpfs -o size=64m tmpfs /var/img
+
+sudo -u firehawk /home/firehawk/firenodejs/scripts/startup.sh
+
+exit 0
