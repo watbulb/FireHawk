@@ -73,6 +73,7 @@ EXTRA_TOOLS_INSTALL = " \
     util-linux \
     wget \
     packagegroup-core-boot \
+    firenodejs-start \
  "
 
 RPI_STUFF = " \
@@ -98,7 +99,7 @@ disable_bootlogd() {
 }
 
 EXTRA_USERS_PARAMS = " \
-        useradd -P '' firehawk; \
+        useradd -P firepick firehawk; \
         groupadd sudo ; \
         groupadd wheel; \
         usermod -a -G wheel,video,sudo firehawk; \
