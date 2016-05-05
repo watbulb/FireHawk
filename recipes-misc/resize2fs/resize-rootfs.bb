@@ -9,7 +9,7 @@ inherit update-rc.d
 INITSCRIPT_NAME = "resize-rootfs"
 INITSCRIPT_PARAMS = "start 10 S ."
 
-RDEPENDS_${PN} = "e2fsprogs-resize2fs parted	"
+RDEPENDS_${PN} = "e2fsprogs-resize2fs parted"
 
 do_install () {
         install -d ${D}${sysconfdir}/init.d
