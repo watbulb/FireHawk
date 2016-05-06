@@ -14,21 +14,20 @@ do_deploy_append() {
         echo "dtoverlay=pi3-disable-bt-overlay.dtb" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
     fi
 
-    if [-n "${MAX_USB_CURRENT}" ]; then
-        echo "" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
-        echo "## avoid limiting usb current" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
-        echo "max_usb_current=0" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
+    if [ -n "${MAX_USB_CURRENT}" ]; then
+        sed -i 's/#max_usb_current=0/max_usb_current=1/g' ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
     fi
 
-    if [-n "${AVOID_PWM_PLL}" ]; then
-        echo "" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
-        echo "## don't dedicate a pll to PWM audio" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
-        echo "avoid_pwm_pll=1" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
+    if [ -n "${AVOID_PWM_PLL}" ]; then
+        sed -i 's/#avoid_pwm_pll=1/avoid_pwm_pll=1/g' ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
     fi
 
-    if [-n "${DISABLE_CAMERA_LED}" ]; then
-        echo "" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
-        echo "## disable camera LED" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
-        echo "disable_camera_led=1" >> ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
+    if [ -n "${DISABLE_CAMERA_LED}" ]; then
+        sed -i 's/#disable_camera_led=1/disable_camera_led=1/g' ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
+    fi
+
+    if [ "${RPI_VER_3}" -eq "1" ]; then
+        sed -i 's/arm_freq=1000/arm_freq=1200/g' ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
+        sed -i 's/over_voltage=2/over_voltage=0/g' ${DEPLOYDIR}/bcm2835-bootfiles/config.txt
     fi
 }
