@@ -12,7 +12,6 @@ DEPENDS += "bcm2835-bootfiles"
 
 CORE_OS = " \
     openssh openssh-keygen openssh-sftp-server \
-    term-prompt \
     tzdata \
     resize-rootfs \
     sudo \
@@ -79,6 +78,7 @@ EXTRA_TOOLS_INSTALL = " \
 RPI_STUFF = " \
     bcm2835-tests \
     userland \
+    firehawk-welcome \
  "
 
 IMAGE_INSTALL += " \
