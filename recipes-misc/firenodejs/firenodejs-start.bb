@@ -7,7 +7,7 @@ SRC_URI = "file://firenodejs-start.init"
 inherit update-rc.d
 
 INITSCRIPT_NAME = "firenodejs-start"
-INITSCRIPT_PARAMS = "start 10 S ."
+INITSCRIPT_PARAMS = "start 90 S ."
 
 do_install () {
         install -d ${D}${sysconfdir}/init.d
