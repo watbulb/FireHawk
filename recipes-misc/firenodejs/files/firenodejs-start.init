@@ -1,6 +1,6 @@
 #!/bin/sh
 #
-# firenodejs_start.init
+# firenodejs-start.init
 #
 # Print the IP address
 

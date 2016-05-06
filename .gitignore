@@ -2,6 +2,6 @@
 *.lock
 *~
 sanity_info
-templateconfig.cfg
+templateconf.cfg
 cache/
 buildhistory/
