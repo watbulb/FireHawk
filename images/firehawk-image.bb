@@ -1,8 +1,6 @@
 SUMMARY = "Current FireHawk development package"
 HOMEPAGE = "https://github.com/daytonpid/FireHawk"
 LICENSE = "MIT"
-
-IMAGE_FEATURES += "package-management"
 IMAGE_LINGUAS = "en-us"
 
 inherit core-image
@@ -90,10 +88,6 @@ IMAGE_INSTALL += " \
     ${WIFI_SUPPORT} \
  "
 
-set_local_timezone() {
-    ln -sf /usr/share/zoneinfo/EST5EDT ${IMAGE_ROOTFS}/etc/localtime
-}
-
 disable_bootlogd() {
     echo BOOTLOGD_ENABLE=no > ${IMAGE_ROOTFS}/etc/default/bootlogd
 }
@@ -107,7 +101,6 @@ EXTRA_USERS_PARAMS = " \
   "
 
 ROOTFS_POSTPROCESS_COMMAND += " \
-    set_local_timezone ; \
     disable_bootlogd ; \
  "
 
