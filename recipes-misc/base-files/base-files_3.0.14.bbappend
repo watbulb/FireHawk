@@ -1,0 +1,6 @@
+FILESEXTRAPATHS_prepend := "${THISDIR}/${PN}:"
+
+SRC_URI += "\
+    file://fstab \
+    file://profile \
+    "
