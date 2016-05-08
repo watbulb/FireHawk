@@ -36,11 +36,7 @@ DEV_SDK_INSTALL = " \
     g++-symlinks \
     libstdc++ \
     libstdc++-dev \
-    coreutils \
-    file \
-    gettext \
     git \
-    ldd \
     libtool \
     make \
     cmake \
@@ -58,7 +54,6 @@ DEV_EXTRAS = " \
 EXTRA_TOOLS_INSTALL = " \
     bc \
     bzip2 \
-    dosfstools \
     ZBar \
     e2fsprogs-resize2fs \
     i2c-tools \
