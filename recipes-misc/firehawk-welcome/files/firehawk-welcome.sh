@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 f=3 b=4
 for j in f b; do
@@ -19,6 +19,7 @@ OS=$(uname -r)
 bit=$(uname -m)
 
 # Other
+memkb=$(grep MemTotal /proc/meminfo | awk '{print $2}')
 uptime=$(uptime | sed 's/.*up \([^,]*\), .*/\1/')
 ram=$(expr $memkb / 1024)
 
@@ -33,5 +34,5 @@ $f3
 $f6             $USER $f7@ $f1$HOSTNAME
 $f6            $H $f4$time$NC - $f7$date
 $f6             $f2$ram$f7 MB Memory
-$f6              uptime: $f2$uptime
+$f6             uptime: $f2$uptime
 EOF
